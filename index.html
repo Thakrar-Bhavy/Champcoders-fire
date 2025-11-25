@@ -7,6 +7,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <style>
+        html, body {
+    height: auto;
+    overflow-y: auto;   /* enables vertical scroll */
+    overflow-x: hidden; /* optional: prevents sideways scroll */
+}
+.screen {
+    min-height: 100vh;   /* allow scrolling */
+    height: auto;
+    overflow: visible;   /* remove hidden */
+}
+#homeScreen {
+    overflow-y: auto;
+}
+
+    </style>
     <!-- Home Screen -->
     <div id="homeScreen" class="screen active">
         <div class="container home-layout">

@@ -1,0 +1,453 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Space Grotesk', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(circle at top, #ff9a76, #1a1a2e);
+    color: white;
+    overflow: hidden;
+    user-select: none;
+}
+
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.screen.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    background: rgba(10, 10, 20, 0.7);
+    padding: 3rem;
+    border-radius: 24px;
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    width: 90%;
+    max-width: 1200px;
+}
+
+.home-layout {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 2rem;
+}
+
+.logo {
+    font-size: 3.2rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.branding-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.setup-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+}
+
+.input-label {
+    display: block;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+select, input[type="text"] {
+    margin-top: 0.5rem;
+    padding: 0.9rem 1rem;
+    border-radius: 10px;
+    border: none;
+    width: 100%;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+    outline: none;
+}
+
+.btn {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.btn.primary {
+    background: #ff6b35;
+    color: white;
+}
+
+.btn.primary:hover {
+    background: #e55a2b;
+    transform: translateY(-2px);
+}
+
+.btn.secondary {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.btn.small {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.instructions {
+    margin-top: 1.5rem;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 1.25rem;
+    border-radius: 12px;
+}
+
+.instructions ul {
+    list-style: disc;
+    margin-left: 1.2rem;
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.95rem;
+}
+
+.instructions h3 {
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+/* Game Screen */
+#gameScreen {
+    background: #1a1a2e;
+}
+
+.game-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.room-info {
+    font-weight: bold;
+}
+
+#playerCount {
+    margin-left: 1rem;
+    color: #ff6b35;
+}
+
+.game-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#matchTimer {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 0.5rem 0.8rem;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+}
+
+#pingIndicator {
+    font-size: 0.9rem;
+    color: #00ff00;
+}
+
+#gameCanvas {
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+}
+
+/* Mobile Controls */
+.mobile-controls {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    z-index: 150;
+    touch-action: none;
+    pointer-events: none;
+}
+
+.mobile-move,
+.mobile-actions {
+    display: flex;
+    gap: 0.75rem;
+    pointer-events: auto;
+}
+
+.control-btn {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.1s ease;
+}
+
+.control-btn:active {
+    transform: scale(0.95);
+}
+
+.control-btn.action {
+    background: rgba(255, 107, 53, 0.85);
+}
+
+/* HUD */
+.hud {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.health-bar, .jetpack-bar {
+    width: 200px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.health-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ff0000, #ff6b35);
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.jetpack-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00a8ff, #0097e6);
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.health-bar span, .jetpack-bar span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.weapon-info {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    min-width: 150px;
+}
+
+.scoreboard {
+    position: absolute;
+    top: 4rem;
+    right: 1.5rem;
+    width: 250px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 16px;
+    padding: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    z-index: 150;
+}
+
+.scoreboard h3 {
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+#scoreboardList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.score-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.5rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Game Over Screen */
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 1rem 0;
+    font-size: 1.2rem;
+}
+
+#winnerInfo {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Notifications */
+.notification {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    z-index: 1000;
+    text-align: center;
+}
+
+.kill-notification {
+    color: #ff6b35;
+}
+
+.join-notification {
+    color: #00ff00;
+}
+
+.leave-notification {
+    color: #ff0000;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem;
+    }
+
+    .home-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .hud {
+        bottom: 0.5rem;
+        left: 0.5rem;
+    }
+    
+    .health-bar, .jetpack-bar {
+        width: 150px;
+    }
+
+    .mobile-controls {
+        bottom: 1rem;
+        padding: 0 1rem;
+    }
+
+    .control-btn {
+        width: 58px;
+        height: 58px;
+    }
+
+    .scoreboard {
+        width: 200px;
+        right: 0.5rem;
+    }
+}
+
+.avatar-picker {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(48px, 1fr));
+    gap: 0.5rem;
+    margin: 0.5rem 0 0.25rem;
+}
+
+.avatar-option {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.avatar-option.selected {
+    border-color: #ff6b35;
+    transform: translateY(-2px);
+}
+
+.avatar-option .emoji {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.hint.small {
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    opacity: 0.7;
+}

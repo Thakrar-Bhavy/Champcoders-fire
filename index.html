@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChampCoder Fire - P2P 2D Shooter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Home Screen -->
+    <div id="homeScreen" class="screen active">
+        <div class="container home-layout">
+            <div class="branding-panel">
+                <h1 class="logo">🔥 ChampCoder Fire</h1>
+                <p class="tagline">Fast-paced, pure browser, Mini-Militia inspired PvP.</p>
+                <div class="instructions">
+                    <h3>How to Play</h3>
+                    <ul>
+                        <li>WASD / arrows to move, mouse to aim, click to shoot</li>
+                        <li>Space/W = jetpack burst, fuel regenerates on ground</li>
+                        <li>Enable mic (M key) to talk through built-in voice chat</li>
+                        <li>Mobile overlay gives touch buttons for jetpack & fire</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="setup-panel">
+                <div class="card">
+                    <h2>Create Room</h2>
+                    <label class="input-label">Username</label>
+                    <input type="text" id="hostNameInput" placeholder="Captain Blaze" maxlength="16">
+                    
+                    <label class="input-label">Match Duration</label>
+                    <select id="matchDurationSelect">
+                        <option value="180">3 Minutes</option>
+                        <option value="300" selected>5 Minutes</option>
+                        <option value="480">8 Minutes</option>
+                    </select>
+
+                    <label class="input-label">Select Map</label>
+                    <select id="mapSelect"></select>
+
+                    <label class="input-label">Choose Avatar</label>
+                    <div class="avatar-picker" id="hostAvatarPicker"></div>
+
+                    <button id="createRoomBtn" class="btn primary">Create Room</button>
+                    <p class="hint small">Room code auto-copies so you can share fast.</p>
+                </div>
+
+                <div class="card">
+                    <h2>Join Room</h2>
+                    <label class="input-label">Username</label>
+                    <input type="text" id="joinNameInput" placeholder="Agent Nova" maxlength="16">
+                    
+                    <label class="input-label">Room Code</label>
+                    <input type="text" id="roomCodeInput" placeholder="ABC123" maxlength="6">
+
+                    <label class="input-label">Choose Avatar</label>
+                    <div class="avatar-picker" id="joinAvatarPicker"></div>
+
+                    <button id="joinRoomConfirm" class="btn secondary">Join Game</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="gameScreen" class="screen">
+        <div class="game-header">
+            <div class="room-info">
+                Room: <span id="roomCodeDisplay">----</span>
+                <span id="playerCount">Players: 1</span>
+            </div>
+            <div class="game-controls">
+                <div id="matchTimer" class="timer-display">05:00</div>
+                <button id="mobileToggleBtn" class="btn small secondary">📱 Mobile Buttons</button>
+                <button id="voiceToggle" class="btn small">🎤 Mute</button>
+                <div id="pingIndicator">Ping: --ms</div>
+            </div>
+        </div>
+        <canvas id="gameCanvas"></canvas>
+        <!-- Mobile Controls -->
+        <div id="mobileControls" class="mobile-controls hidden">
+            <div class="mobile-move">
+                <button id="mobileLeft" class="control-btn">◀</button>
+                <button id="mobileRight" class="control-btn">▶</button>
+            </div>
+            <div class="mobile-actions">
+                <button id="mobileJetpack" class="control-btn action">Fly</button>
+                <button id="mobileShoot" class="control-btn action">Shoot</button>
+            </div>
+        </div>
+        <div class="hud">
+            <div class="health-bar">
+                <div class="health-fill" id="healthFill"></div>
+                <span>HP: <span id="healthText">100</span></span>
+            </div>
+            <div class="jetpack-bar">
+                <div class="jetpack-fill" id="jetpackFill"></div>
+                <span>Fuel: <span id="jetpackText">100</span>%</span>
+            </div>
+            <div class="weapon-info">
+                <span id="weaponName">Pistol</span>
+                <span id="ammoCount">∞</span>
+            </div>
+        </div>
+        <div id="scoreboardOverlay" class="scoreboard hidden">
+            <h3>Squad Stats</h3>
+            <div id="scoreboardList"></div>
+        </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameOverScreen" class="screen">
+        <div class="container">
+            <h2 id="gameOverTitle">Game Over</h2>
+            <div id="winnerInfo"></div>
+            <div class="stats">
+                <div>Kills: <span id="finalKills">0</span></div>
+                <div>Deaths: <span id="finalDeaths">0</span></div>
+            </div>
+            <button id="playAgainBtn" class="btn primary">Play Again</button>
+            <button id="backToHomeBtn" class="btn secondary">Home</button>
+        </div>
+    </div>
+
+    <!-- Notifications -->
+    <div id="notification" class="notification hidden"></div>
+
+    <script src="config.js"></script>
+    <script src="physics.js"></script>
+    <script src="map.js"></script>
+    <script src="player.js"></script>
+    <script src="network.js"></script>
+    <script src="audio.js"></script>
+    <script src="webrtc.js"></script>
+    <script src="ui.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
